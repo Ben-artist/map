@@ -8,6 +8,7 @@ import { routeTree } from './routeTree.gen'
 export function getRouter() {
   const router = createTanStackRouter({
     routeTree,
+    basepath: '/map',
     parseSearch: parseMapSearch,
     stringifySearch: stringifyMapSearch,
     scrollRestoration: true,

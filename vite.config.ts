@@ -7,7 +7,11 @@ import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { nitro } from 'nitro/vite'
 
+/** 生产环境通过 Nginx 挂载在 https://domain/map/ */
+const appBase = '/map/'
+
 const config = defineConfig({
+  base: appBase,
   resolve: { tsconfigPaths: true },
   plugins: [
     devtools(),

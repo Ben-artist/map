@@ -28,7 +28,7 @@ export function buildMapShareUrl(
   search: MapUrlSearch,
   origin = typeof window !== 'undefined' ? window.location.origin : '',
 ): string {
-  const url = new URL('/', origin)
+  const url = new URL(import.meta.env.BASE_URL, origin)
   if (search.province) url.searchParams.set('province', search.province)
   if (search.city) url.searchParams.set('city', search.city)
   return url.toString()
