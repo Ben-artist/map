@@ -14,6 +14,7 @@ module.exports = {
         NODE_ENV: 'production',
         HOST: '127.0.0.1',
         PORT: '3000',
+        NITRO_APP_BASE_URL: '/map/',
       },
     },
   ],
