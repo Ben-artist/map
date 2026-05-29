@@ -58,7 +58,7 @@ export function MapBreadcrumb({
     <nav
       aria-label="地图层级"
       className={cn(
-        'flex flex-wrap items-center gap-0.5 rounded-full border border-[var(--line)] bg-[var(--surface-strong)]/95 px-2.5 py-1 text-xs shadow-sm backdrop-blur-sm',
+        'flex flex-wrap items-center gap-0.5 rounded-full border border-(--line) bg-(--surface-strong)/95 px-2.5 py-1 text-xs shadow-sm backdrop-blur-sm',
         className,
       )}
     >
@@ -66,19 +66,19 @@ export function MapBreadcrumb({
         <span key={`${crumb.label}-${index}`} className="inline-flex items-center">
           {index > 0 && (
             <ChevronRight
-              className="mx-0.5 size-3 shrink-0 text-[var(--sea-ink-soft)]"
+              className="mx-0.5 size-3 shrink-0 text-(--sea-ink-soft)"
               aria-hidden
             />
           )}
           {crumb.isCurrent ? (
-            <span className="font-semibold text-[var(--sea-ink)]">
+            <span className="font-semibold text-(--sea-ink)">
               {crumb.label}
             </span>
           ) : (
             <button
               type="button"
               onClick={() => onNavigate(crumb.search)}
-              className="font-medium text-[var(--lagoon-deep)] transition hover:underline"
+              className="font-medium text-(--lagoon-deep) transition hover:underline"
             >
               {crumb.label}
             </button>

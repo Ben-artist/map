@@ -346,6 +346,18 @@ a {
   background: color-mix(in oklab, var(--header-bg) 84%, transparent 16%);
 }
 
+.history-page {
+  background:
+    radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--hero-a) 35%, transparent), transparent 55%),
+    radial-gradient(90% 60% at 100% 8%, color-mix(in oklab, var(--hero-b) 45%, transparent), transparent 52%),
+    var(--bg-base);
+}
+
+.history-page__aside {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--line) 80%, transparent) transparent;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

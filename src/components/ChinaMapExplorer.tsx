@@ -133,7 +133,7 @@ export function ChinaMapExplorer() {
           type="button"
           onClick={openAiChat}
           className={cn(
-            'pointer-events-auto fixed z-[60] flex size-14 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--lagoon-deep)] text-white shadow-lg transition hover:opacity-90',
+            'pointer-events-auto fixed z-[60] flex size-14 items-center justify-center rounded-full border border-(--line) bg-(--lagoon-deep) text-white shadow-lg transition hover:opacity-90',
             'bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))]',
           )}
           aria-label="打开 AI 地名向导"

@@ -67,7 +67,7 @@ export function RegionSearch({ onSelect, className }: RegionSearchProps) {
     <div ref={containerRef} className={cn('relative w-full', className)}>
       <div className="relative">
         <Search
-          className="pointer-events-none absolute left-3.5 top-1/2 size-[1.125rem] -translate-y-1/2 text-[var(--sea-ink-soft)]"
+          className="pointer-events-none absolute left-3.5 top-1/2 size-[1.125rem] -translate-y-1/2 text-(--sea-ink-soft)"
           aria-hidden
         />
         <input
@@ -84,7 +84,7 @@ export function RegionSearch({ onSelect, className }: RegionSearchProps) {
           aria-expanded={open && results.length > 0}
           aria-controls={listId}
           aria-autocomplete="list"
-          className="h-11 w-full rounded-full border border-[var(--line)] bg-white/90 py-0 pl-10 pr-4 text-base leading-none text-[var(--sea-ink)] shadow-sm backdrop-blur-sm outline-none ring-[var(--lagoon)] transition placeholder:text-[var(--sea-ink-soft)] focus:ring-2 sm:h-12"
+          className="h-11 w-full rounded-full border border-(--line) bg-white/90 py-0 pl-10 pr-4 text-base leading-none text-(--sea-ink) shadow-sm backdrop-blur-sm outline-none ring-(--lagoon) transition placeholder:text-(--sea-ink-soft) focus:ring-2 sm:h-12"
         />
       </div>
 
@@ -92,7 +92,7 @@ export function RegionSearch({ onSelect, className }: RegionSearchProps) {
         <ul
           id={listId}
           role="listbox"
-          className="absolute left-0 right-0 top-[calc(100%+0.35rem)] z-50 max-h-64 overflow-y-auto rounded-xl border border-[var(--line)] bg-[var(--surface-strong)] py-1 shadow-lg backdrop-blur-md"
+          className="absolute left-0 right-0 top-[calc(100%+0.35rem)] z-50 max-h-64 overflow-y-auto rounded-xl border border-(--line) bg-(--surface-strong) py-1 shadow-lg backdrop-blur-md"
         >
           {results.map((hit, index) => (
             <li key={hit.adcode} role="option" aria-selected={index === activeIndex}>
@@ -107,13 +107,13 @@ export function RegionSearch({ onSelect, className }: RegionSearchProps) {
                     : 'hover:bg-[rgba(79,184,178,0.1)]',
                 )}
               >
-                <span className="flex items-center justify-between gap-2 text-sm font-medium text-[var(--sea-ink)]">
+                <span className="flex items-center justify-between gap-2 text-sm font-medium text-(--sea-ink)">
                   <span>{hit.name}</span>
-                  <span className="text-xs text-[var(--sea-ink-soft)]">
+                  <span className="text-xs text-(--sea-ink-soft)">
                     {hit.platePrefix}
                   </span>
                 </span>
-                <span className="line-clamp-1 text-xs text-[var(--sea-ink-soft)]">
+                <span className="line-clamp-1 text-xs text-(--sea-ink-soft)">
                   {hit.subtitle}
                   {' · '}
                   {(hit.structured.etymology || hit.nameOrigin).slice(0, 36)}

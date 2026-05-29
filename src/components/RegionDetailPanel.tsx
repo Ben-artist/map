@@ -149,7 +149,7 @@ export function RegionDetailPanel({
         }}
         aria-label="地区详情"
       >
-        <Card className="relative flex max-h-[inherit] flex-col gap-0 overflow-hidden rounded-t-2xl border-[var(--line)] bg-[var(--surface-strong)] py-0 shadow-xl backdrop-blur-md sm:rounded-xl sm:shadow-lg">
+        <Card className="relative flex max-h-[inherit] flex-col gap-0 overflow-hidden rounded-t-2xl border-(--line) bg-(--surface-strong) py-0 shadow-xl backdrop-blur-md sm:rounded-xl sm:shadow-lg">
           <div
             className="flex shrink-0 justify-center pt-2 sm:hidden"
             onTouchStart={onTouchStart}
@@ -157,13 +157,13 @@ export function RegionDetailPanel({
             onTouchEnd={onTouchEnd}
           >
             <div
-              className="h-1 w-10 rounded-full bg-[var(--line)]"
+              className="h-1 w-10 rounded-full bg-(--line)"
               aria-hidden
             />
           </div>
 
           <CardHeader
-            className="grid-rows-1 gap-0 border-b border-[var(--line)] px-4 py-2.5 [.border-b]:pb-2.5"
+            className="grid-rows-1 gap-0 border-b border-(--line) px-4 py-2.5 [.border-b]:pb-2.5"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
@@ -173,36 +173,36 @@ export function RegionDetailPanel({
                 {isCityLevel ? (
                   <>
                     <div className="flex flex-wrap items-center gap-2">
-                      <CardTitle className="text-lg text-[var(--sea-ink)]">
+                      <CardTitle className="text-lg text-(--sea-ink)">
                         {placeDisplayName}
                       </CardTitle>
                       {city ? (
                         <Badge
                           variant="outline"
-                          className="border-[var(--chip-line)] bg-[var(--chip-bg)] text-[var(--sea-ink)]"
+                          className="border-(--chip-line) bg-(--chip-bg) text-(--sea-ink)"
                         >
                           {city.platePrefix}
                         </Badge>
                       ) : null}
                     </div>
-                    <CardDescription className="mt-0.5 text-[var(--sea-ink-soft)]">
+                    <CardDescription className="mt-0.5 text-(--sea-ink-soft)">
                       {province?.name ?? '市级'}
                     </CardDescription>
                   </>
                 ) : province ? (
                   <>
                     <div className="flex flex-wrap items-center gap-2">
-                      <CardTitle className="text-lg text-[var(--sea-ink)]">
+                      <CardTitle className="text-lg text-(--sea-ink)">
                         {province.name}
                       </CardTitle>
                       <Badge
                         variant="outline"
-                        className="border-[var(--chip-line)] bg-[var(--chip-bg)] text-[var(--sea-ink)]"
+                        className="border-(--chip-line) bg-(--chip-bg) text-(--sea-ink)"
                       >
                         {province.platePrefix}
                       </Badge>
                     </div>
-                    <CardDescription className="mt-0.5 text-[var(--sea-ink-soft)]">
+                    <CardDescription className="mt-0.5 text-(--sea-ink-soft)">
                       省会 {province.capital}
                     </CardDescription>
                   </>
@@ -211,7 +211,7 @@ export function RegionDetailPanel({
               <button
                 type="button"
                 onClick={onClose}
-                className="shrink-0 rounded-full p-1 text-[var(--sea-ink-soft)] transition hover:bg-[var(--line)] hover:text-[var(--sea-ink)]"
+                className="shrink-0 rounded-full p-1 text-(--sea-ink-soft) transition hover:bg-(--line) hover:text-(--sea-ink)"
                 aria-label="关闭详情"
               >
                 <X className="size-4" aria-hidden />
@@ -221,7 +221,7 @@ export function RegionDetailPanel({
               <button
                 type="button"
                 onClick={() => onViewCities(provinceAdcode)}
-                className="col-span-full w-fit pt-1 text-base font-medium text-[var(--lagoon-deep)] underline-offset-2 hover:underline"
+                className="col-span-full w-fit pt-1 text-base font-medium text-(--lagoon-deep) underline-offset-2 hover:underline"
               >
                 查看各市 →
               </button>
@@ -230,7 +230,7 @@ export function RegionDetailPanel({
 
           {!aiChatOpen && activeAdcode && (
             <div
-              className="flex shrink-0 gap-1 border-b border-[var(--line)] px-3 py-2"
+              className="flex shrink-0 gap-1 border-b border-(--line) px-3 py-2"
               role="tablist"
               aria-label="详情分类"
             >
@@ -244,8 +244,8 @@ export function RegionDetailPanel({
                   className={cn(
                     'flex-1 rounded-lg px-2 py-1.5 text-base font-medium transition',
                     tab === item.id
-                      ? 'bg-[var(--lagoon-deep)] text-white'
-                      : 'text-[var(--sea-ink-soft)] hover:bg-[rgba(79,184,178,0.12)] hover:text-[var(--sea-ink)]',
+                      ? 'bg-(--lagoon-deep) text-white'
+                      : 'text-(--sea-ink-soft) hover:bg-[rgba(79,184,178,0.12)] hover:text-(--sea-ink)',
                   )}
                 >
                   {item.label}
@@ -282,7 +282,7 @@ export function RegionDetailPanel({
               </div>
             ) : article ? (
               <div className="min-h-0 flex-1 overflow-y-auto">
-                <p className="text-base font-medium leading-snug text-[var(--sea-ink)]">
+                <p className="text-base font-medium leading-snug text-(--sea-ink)">
                   {displaySummary}
                 </p>
                 {article.hasExpandable ? (
@@ -294,24 +294,24 @@ export function RegionDetailPanel({
                     onAiLoaded={({ summary }) => setDisplaySummary(summary)}
                   />
                 ) : (
-                  <p className="mt-3 text-base leading-relaxed text-[var(--sea-ink-soft)]">
+                  <p className="mt-3 text-base leading-relaxed text-(--sea-ink-soft)">
                     详细解读整理中，先看上方概要。
                   </p>
                 )}
               </div>
             ) : (
-              <p className="text-base leading-relaxed text-[var(--sea-ink)]">
+              <p className="text-base leading-relaxed text-(--sea-ink)">
                 {nameOrigin || '暂无地名科普资料。'}
               </p>
             )}
           </CardContent>
 
           {!aiChatOpen && (
-            <div className="flex shrink-0 gap-2 border-t border-[var(--line)] px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+            <div className="flex shrink-0 gap-2 border-t border-(--line) px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
               <button
                 type="button"
                 onClick={() => void copyLink()}
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-[var(--line)] bg-white/80 px-3 py-2 text-base font-medium text-[var(--sea-ink)] transition hover:bg-white"
+                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-(--line) bg-white/80 px-3 py-2 text-base font-medium text-(--sea-ink) transition hover:bg-white"
               >
                 <Link2 className="size-4" aria-hidden />
                 {copied ? '已复制链接' : '复制分享链接'}

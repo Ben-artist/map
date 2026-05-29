@@ -74,14 +74,14 @@ export function ExpandableArticle({
   const body = longForm?.body?.trim()
 
   return (
-    <div className={cn('mt-4 border-t border-[var(--line)] pt-3', className)}>
+    <div className={cn('mt-4 border-t border-(--line) pt-3', className)}>
       <button
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={handleToggle}
         disabled={loading && !open}
-        className="flex w-full items-center justify-between gap-2 rounded-lg px-1 py-1.5 text-left text-sm font-medium text-[var(--lagoon-deep)] transition hover:bg-[rgba(79,184,178,0.08)] disabled:opacity-60"
+        className="flex w-full items-center justify-between gap-2 rounded-lg px-1 py-1.5 text-left text-sm font-medium text-(--lagoon-deep) transition hover:bg-[rgba(79,184,178,0.08)] disabled:opacity-60"
       >
         <span className="inline-flex items-center gap-1.5">
           {loading ? (
@@ -116,19 +116,19 @@ export function ExpandableArticle({
           </p>
         )}
         {loading && !body && (
-          <p className="text-sm text-[var(--sea-ink-soft)]">
+          <p className="text-sm text-(--sea-ink-soft)">
             正在通过博查检索史料，并由千问撰写解读…
           </p>
         )}
         {body && (
           <>
             {aiGenerated && (
-              <p className="mb-2 inline-flex items-center gap-1 rounded-full border border-[var(--line)] bg-[rgba(79,184,178,0.12)] px-2 py-0.5 text-base font-medium text-[var(--lagoon-deep)]">
+              <p className="mb-2 inline-flex items-center gap-1 rounded-full border border-(--line) bg-[rgba(79,184,178,0.12)] px-2 py-0.5 text-base font-medium text-(--lagoon-deep)">
                 <Sparkles className="size-3" aria-hidden />
                 AI 辅助解读 · 仅供参考
               </p>
             )}
-            <p className="text-sm leading-[1.75] text-[var(--sea-ink)]">
+            <p className="text-sm leading-[1.75] text-(--sea-ink)">
               {body}
             </p>
           </>
@@ -137,7 +137,7 @@ export function ExpandableArticle({
           <button
             type="button"
             onClick={() => void fetchAi()}
-            className="text-sm font-medium text-[var(--lagoon-deep)] underline-offset-2 hover:underline"
+            className="text-sm font-medium text-(--lagoon-deep) underline-offset-2 hover:underline"
           >
             使用 AI 生成详细解读
           </button>

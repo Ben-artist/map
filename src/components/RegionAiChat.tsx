@@ -99,25 +99,25 @@ export function RegionAiChat({
 
   return (
     <div className={cn('flex min-h-0 flex-1 flex-col', className)}>
-      <div className="flex shrink-0 items-center gap-2 border-b border-[var(--line)] px-1 pb-3">
+      <div className="flex shrink-0 items-center gap-2 border-b border-(--line) px-1 pb-3">
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-base font-medium text-[var(--lagoon-deep)] transition hover:bg-[rgba(79,184,178,0.1)]"
+          className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-base font-medium text-(--lagoon-deep) transition hover:bg-[rgba(79,184,178,0.1)]"
           aria-label="返回地名详情"
         >
           <ChevronLeft className="size-4" aria-hidden />
           返回
         </button>
         <div className="flex min-w-0 flex-1 items-center gap-2">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[rgba(79,184,178,0.2)] text-[var(--lagoon-deep)]">
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[rgba(79,184,178,0.2)] text-(--lagoon-deep)">
             <Bot className="size-4" aria-hidden />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-base font-semibold text-[var(--sea-ink)]">
+            <p className="truncate text-base font-semibold text-(--sea-ink)">
               AI 地名向导
             </p>
-            <p className="truncate text-base text-[var(--sea-ink-soft)]">
+            <p className="truncate text-base text-(--sea-ink-soft)">
               关于 {placeName}
             </p>
           </div>
@@ -130,9 +130,9 @@ export function RegionAiChat({
       >
         {messages.length === 0 && !loading && (
           <div className="space-y-3">
-            <p className="text-base leading-relaxed text-[var(--sea-ink-soft)]">
+            <p className="text-base leading-relaxed text-(--sea-ink-soft)">
               你好，我可以根据本站的地名典故资料，解答你对
-              <span className="font-medium text-[var(--sea-ink)]">
+              <span className="font-medium text-(--sea-ink)">
                 {placeName}
               </span>
               的疑问。
@@ -143,13 +143,13 @@ export function RegionAiChat({
                   key={s}
                   type="button"
                   onClick={() => void send(s)}
-                  className="rounded-full border border-[var(--line)] bg-white/80 px-3 py-1.5 text-base text-[var(--lagoon-deep)] transition hover:bg-white"
+                  className="rounded-full border border-(--line) bg-white/80 px-3 py-1.5 text-base text-(--lagoon-deep) transition hover:bg-white"
                 >
                   {s}
                 </button>
               ))}
             </div>
-            <p className="text-base text-[var(--sea-ink-soft)]">
+            <p className="text-base text-(--sea-ink-soft)">
               AI 辅助回答，仅供参考，重要史实请以方志为准。
             </p>
           </div>
@@ -161,8 +161,8 @@ export function RegionAiChat({
             className={cn(
               'max-w-[95%] rounded-2xl px-3 py-2 text-base leading-relaxed',
               msg.role === 'user'
-                ? 'ml-auto bg-[var(--lagoon-deep)] text-white'
-                : 'mr-auto border border-[var(--line)] bg-white/90 text-[var(--sea-ink)]',
+                ? 'ml-auto bg-(--lagoon-deep) text-white'
+                : 'mr-auto border border-(--line) bg-white/90 text-(--sea-ink)',
             )}
           >
             {msg.content}
@@ -170,7 +170,7 @@ export function RegionAiChat({
         ))}
 
         {loading && (
-          <div className="mr-auto inline-flex items-center gap-2 rounded-2xl border border-[var(--line)] bg-white/90 px-3 py-2 text-base text-[var(--sea-ink-soft)]">
+          <div className="mr-auto inline-flex items-center gap-2 rounded-2xl border border-(--line) bg-white/90 px-3 py-2 text-base text-(--sea-ink-soft)">
             <Loader2 className="size-4 animate-spin" aria-hidden />
             正在思考…
           </div>
@@ -185,7 +185,7 @@ export function RegionAiChat({
 
       <form
         onSubmit={onSubmit}
-        className="shrink-0 border-t border-[var(--line)] pt-3"
+        className="shrink-0 border-t border-(--line) pt-3"
       >
         <div className="flex gap-2">
           <textarea
@@ -196,12 +196,12 @@ export function RegionAiChat({
             rows={2}
             placeholder={`问问${placeName}的地名故事…`}
             disabled={loading}
-            className="min-h-[2.75rem] flex-1 resize-none rounded-xl border border-[var(--line)] bg-white/90 px-3 py-2 text-base text-[var(--sea-ink)] outline-none ring-[var(--lagoon)] placeholder:text-[var(--sea-ink-soft)] focus:ring-2 disabled:opacity-60"
+            className="min-h-11 flex-1 resize-none rounded-xl border border-(--line) bg-white/90 px-3 py-2 text-base text-(--sea-ink) outline-none ring-(--lagoon) placeholder:text-(--sea-ink-soft) focus:ring-2 disabled:opacity-60"
           />
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[var(--lagoon-deep)] text-white transition hover:opacity-90 disabled:opacity-40"
+            className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-(--lagoon-deep) text-white transition hover:opacity-90 disabled:opacity-40"
             aria-label="发送"
           >
             <Send className="size-4" aria-hidden />

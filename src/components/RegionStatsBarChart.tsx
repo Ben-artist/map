@@ -35,7 +35,7 @@ export function RegionStatsBarChart({
 
   if (!stats || !option) {
     return (
-      <p className="text-base text-[var(--sea-ink-soft)]">
+      <p className="text-base text-(--sea-ink-soft)">
         该地区统计数据整理中。
       </p>
     )
@@ -43,12 +43,12 @@ export function RegionStatsBarChart({
 
   return (
     <div className={cn('flex flex-col gap-2', className)}>
-      <p className="text-base text-[var(--sea-ink-soft)]">
+      <p className="text-base text-(--sea-ink-soft)">
         {stats.year} 年统计公报口径
         {stats.estimated ? '（部分为估算，仅供课堂示意）' : ''}
         · 蓝色柱为{placeName}，浅色柱为大陆 31 省级算术平均
       </p>
-      <div className="h-[220px] w-full min-w-0 rounded-xl border border-[var(--line)] bg-white/50">
+      <div className="h-[220px] w-full min-w-0 rounded-xl border border-(--line) bg-white/50">
         <ReactECharts
           key={adcode}
           option={option}
@@ -58,39 +58,39 @@ export function RegionStatsBarChart({
         />
       </div>
       <dl className="grid grid-cols-2 gap-2 text-base">
-        <div className="rounded-lg border border-[var(--line)] bg-white/70 px-2.5 py-2">
-          <dt className="text-[var(--sea-ink-soft)]">GDP</dt>
-          <dd className="font-semibold text-[var(--sea-ink)]">
+        <div className="rounded-lg border border-(--line) bg-white/70 px-2.5 py-2">
+          <dt className="text-(--sea-ink-soft)">GDP</dt>
+          <dd className="font-semibold text-(--sea-ink)">
             {stats.gdpYi.toLocaleString('zh-CN')} 亿元
           </dd>
-          <dd className="text-[var(--sea-ink-soft)]">
+          <dd className="text-(--sea-ink-soft)">
             全国均值 {nationalAvg.gdpYi.toLocaleString('zh-CN')} 亿元
           </dd>
         </div>
-        <div className="rounded-lg border border-[var(--line)] bg-white/70 px-2.5 py-2">
-          <dt className="text-[var(--sea-ink-soft)]">常住人口</dt>
-          <dd className="font-semibold text-[var(--sea-ink)]">
+        <div className="rounded-lg border border-(--line) bg-white/70 px-2.5 py-2">
+          <dt className="text-(--sea-ink-soft)">常住人口</dt>
+          <dd className="font-semibold text-(--sea-ink)">
             {stats.populationWan.toLocaleString('zh-CN')} 万人
           </dd>
-          <dd className="text-[var(--sea-ink-soft)]">
+          <dd className="text-(--sea-ink-soft)">
             全国均值 {nationalAvg.populationWan.toLocaleString('zh-CN')} 万人
           </dd>
         </div>
-        <div className="rounded-lg border border-[var(--line)] bg-white/70 px-2.5 py-2">
-          <dt className="text-[var(--sea-ink-soft)]">面积</dt>
-          <dd className="font-semibold text-[var(--sea-ink)]">
+        <div className="rounded-lg border border-(--line) bg-white/70 px-2.5 py-2">
+          <dt className="text-(--sea-ink-soft)">面积</dt>
+          <dd className="font-semibold text-(--sea-ink)">
             {stats.areaWanKm2.toLocaleString('zh-CN')} 万km²
           </dd>
-          <dd className="text-[var(--sea-ink-soft)]">
+          <dd className="text-(--sea-ink-soft)">
             全国均值 {nationalAvg.areaWanKm2.toLocaleString('zh-CN')} 万km²
           </dd>
         </div>
-        <div className="rounded-lg border border-[var(--line)] bg-white/70 px-2.5 py-2">
-          <dt className="text-[var(--sea-ink-soft)]">城镇化率</dt>
-          <dd className="font-semibold text-[var(--sea-ink)]">
+        <div className="rounded-lg border border-(--line) bg-white/70 px-2.5 py-2">
+          <dt className="text-(--sea-ink-soft)">城镇化率</dt>
+          <dd className="font-semibold text-(--sea-ink)">
             {stats.urbanRate}%
           </dd>
-          <dd className="text-[var(--sea-ink-soft)]">
+          <dd className="text-(--sea-ink-soft)">
             全国均值 {nationalAvg.urbanRate}%
           </dd>
         </div>
