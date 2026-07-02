@@ -59,6 +59,7 @@ export function RegionDetailPanel({
   const [copied, setCopied] = useState(false)
   const [tab, setTab] = useState<DetailTab>('stats')
   const [dragOffset, setDragOffset] = useState(0)
+  const [backdropReady, setBackdropReady] = useState(false)
   const touchStartY = useRef(0)
   const dragging = useRef(false)
 
@@ -96,6 +97,15 @@ export function RegionDetailPanel({
     setTab('stats')
   }, [activeAdcode])
 
+  /** 避免地图点击与遮罩关闭同一次手势冲突（移动端面板一闪即关） */
+  useEffect(() => {
+    setBackdropReady(false)
+    const id = window.requestAnimationFrame(() => {
+      setBackdropReady(true)
+    })
+    return () => window.cancelAnimationFrame(id)
+  }, [provinceAdcode, cityAdcode])
+
   const placeDisplayName = isCityLevel
     ? (city?.name ??
       (placeNameFromOrigin(CITY_NAME_ORIGINS[cityAdcode!] ?? '') || '该地区'))
@@ -132,7 +142,10 @@ export function RegionDetailPanel({
       <button
         type="button"
         aria-label="关闭详情"
-        className="fixed inset-0 z-40 bg-[rgba(23,58,64,0.35)] sm:hidden"
+        className={cn(
+          'fixed inset-0 z-40 bg-[rgba(23,58,64,0.35)] sm:hidden',
+          backdropReady ? 'pointer-events-auto' : 'pointer-events-none',
+        )}
         onClick={onClose}
       />
 

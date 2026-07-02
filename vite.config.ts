@@ -11,12 +11,12 @@ import { nitro } from 'nitro/vite'
 const appBase = '/map/'
 
 const config = defineConfig({
-  base: appBase,
+  base: process.env.NODE_ENV === 'production' ? appBase : '/',
   resolve: { tsconfigPaths: true },
   plugins: [
     devtools(),
     nitro({
-      baseURL: appBase,
+      baseURL: process.env.NODE_ENV === 'production' ? appBase : '/',
       rollupConfig: { external: [/^@sentry\//] },
     }),
     tailwindcss(),

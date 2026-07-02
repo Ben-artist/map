@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiRegionGeoAdcodeRouteImport } from './routes/api/region-geo.$adcode'
 
 const HistoryRoute = HistoryRouteImport.update({
   id: '/history',
@@ -22,31 +23,40 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiRegionGeoAdcodeRoute = ApiRegionGeoAdcodeRouteImport.update({
+  id: '/api/region-geo/$adcode',
+  path: '/api/region-geo/$adcode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
+  '/api/region-geo/$adcode': typeof ApiRegionGeoAdcodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
+  '/api/region-geo/$adcode': typeof ApiRegionGeoAdcodeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
+  '/api/region-geo/$adcode': typeof ApiRegionGeoAdcodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history'
+  fullPaths: '/' | '/history' | '/api/region-geo/$adcode'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history'
-  id: '__root__' | '/' | '/history'
+  to: '/' | '/history' | '/api/region-geo/$adcode'
+  id: '__root__' | '/' | '/history' | '/api/region-geo/$adcode'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HistoryRoute: typeof HistoryRoute
+  ApiRegionGeoAdcodeRoute: typeof ApiRegionGeoAdcodeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/region-geo/$adcode': {
+      id: '/api/region-geo/$adcode'
+      path: '/api/region-geo/$adcode'
+      fullPath: '/api/region-geo/$adcode'
+      preLoaderRoute: typeof ApiRegionGeoAdcodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HistoryRoute: HistoryRoute,
+  ApiRegionGeoAdcodeRoute: ApiRegionGeoAdcodeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

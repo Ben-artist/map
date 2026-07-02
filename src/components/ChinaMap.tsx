@@ -42,7 +42,6 @@ interface ChinaMapProps {
   /** 高亮选中的 adcode（省或市） */
   highlightAdcode?: string | null
   onRegionClick?: (payload: MapRegionClickPayload) => void
-  onRequestChinaView?: () => void
   /** 市级 GeoJSON 加载状态变化 */
   onCitiesLoadingChange?: (loading: boolean) => void
 }
@@ -55,7 +54,6 @@ export function ChinaMap({
   viewProvinceAdcode = null,
   highlightAdcode = null,
   onRegionClick,
-  onRequestChinaView,
   onCitiesLoadingChange,
 }: ChinaMapProps) {
   const [mounted, setMounted] = useState(false)
@@ -65,6 +63,24 @@ export function ChinaMap({
   const chartRef = useRef<ReactECharts>(null)
   const adcodeToNameRef = useRef<Map<string, string>>(new Map())
   const cityFeaturesRef = useRef<RegionFeature[]>([])
+  const highlightAdcodeRef = useRef<string | null>(highlightAdcode)
+  const provinceLoadSeqRef = useRef(0)
+
+  highlightAdcodeRef.current = highlightAdcode
+
+  /** 从 ECharts 点击参数解析 adcode（data 缺失时按名称反查）。 */
+  const resolveClickAdcode = useCallback(
+    (params: { data?: MapClickData; name?: string }) => {
+      if (params.data?.adcode) return params.data.adcode
+      const name = params.data?.name ?? params.name
+      if (!name) return undefined
+      for (const [code, regionName] of adcodeToNameRef.current.entries()) {
+        if (regionName === name) return code
+      }
+      return undefined
+    },
+    [],
+  )
 
   const provinceFeatures = useMemo(
     () => prepareMapFeatures(filterProvinceFeatures(chinaGeo)),
@@ -104,8 +120,8 @@ export function ChinaMap({
   const switchToChina = useCallback(() => {
     cityFeaturesRef.current = []
     const highlight =
-      highlightAdcode && highlightAdcode.endsWith('0000')
-        ? highlightAdcode
+      highlightAdcodeRef.current && highlightAdcodeRef.current.endsWith('0000')
+        ? highlightAdcodeRef.current
         : null
     setChartOption(buildChinaMapOption(provinceFeatures, highlight))
     setMapLevel('china')
@@ -118,16 +134,26 @@ export function ChinaMap({
       )
     }
     adcodeToNameRef.current = nameMap
-  }, [provinceFeatures, highlightAdcode])
+  }, [provinceFeatures])
 
   const switchToProvinceCities = useCallback(
     async (province: RegionFeature) => {
       const adcode = province.properties.code
       if (!getProvinceMeta(adcode)) return false
+      if (
+        activeProvince === adcode &&
+        mapLevel === 'city' &&
+        cityFeaturesRef.current.length > 0
+      ) {
+        return true
+      }
 
+      const loadSeq = ++provinceLoadSeqRef.current
       onCitiesLoadingChange?.(true)
       try {
         const collection = await fetchProvinceGeo(adcode)
+        if (loadSeq !== provinceLoadSeqRef.current) return true
+
         const cities = prepareMapFeatures(
           filterCityFeatures(collection, adcode),
         )
@@ -136,7 +162,12 @@ export function ChinaMap({
 
         cityFeaturesRef.current = cities
         setChartOption(
-          buildProvinceMapOption(mapId, cities, adcode, highlightAdcode),
+          buildProvinceMapOption(
+            mapId,
+            cities,
+            adcode,
+            highlightAdcodeRef.current,
+          ),
         )
         setActiveProvince(adcode)
         setMapLevel('city')
@@ -150,14 +181,21 @@ export function ChinaMap({
         adcodeToNameRef.current = nameMap
         return true
       } catch {
+        if (loadSeq !== provinceLoadSeqRef.current) return false
         switchToChina()
-        onRequestChinaView?.()
         return false
       } finally {
-        onCitiesLoadingChange?.(false)
+        if (loadSeq === provinceLoadSeqRef.current) {
+          onCitiesLoadingChange?.(false)
+        }
       }
     },
-    [switchToChina, onRequestChinaView, onCitiesLoadingChange, highlightAdcode],
+    [
+      activeProvince,
+      mapLevel,
+      switchToChina,
+      onCitiesLoadingChange,
+    ],
   )
 
   /** 选中变化时刷新省内地图高亮（深链打开市时依赖此 effect） */
@@ -185,12 +223,16 @@ export function ChinaMap({
     const apply = () => {
       const name = adcodeToNameRef.current.get(highlightAdcode)
       if (!name) return false
-      chart.dispatchAction({ type: 'downplay', seriesIndex: 0 })
-      chart.dispatchAction({
-        type: 'highlight',
-        seriesIndex: 0,
-        name,
-      })
+      try {
+        chart.dispatchAction({ type: 'downplay', seriesIndex: 0 })
+        chart.dispatchAction({
+          type: 'highlight',
+          seriesIndex: 0,
+          name,
+        })
+      } catch {
+        // option 切换时实例可能正在销毁
+      }
       return true
     }
 
@@ -244,9 +286,9 @@ export function ChinaMap({
   }, [mapsReady, chartOption, mapLevel])
 
   const handleMapClick = useCallback(
-    (params: { data?: MapClickData }) => {
-      const adcode = params.data?.adcode
-      const name = params.data?.name ?? ''
+    (params: { data?: MapClickData; name?: string }) => {
+      const adcode = resolveClickAdcode(params)
+      const name = params.data?.name ?? params.name ?? ''
       if (!adcode) return
 
       if (mapLevel === 'china') {
@@ -270,7 +312,7 @@ export function ChinaMap({
         })
       }
     },
-    [mapLevel, provinceByAdcode, activeProvince, onRegionClick],
+    [mapLevel, provinceByAdcode, activeProvince, onRegionClick, resolveClickAdcode],
   )
 
   if (!mounted) {

@@ -1,4 +1,5 @@
 import { createRouter as createTanStackRouter } from '@tanstack/react-router'
+import { getAppBasepath } from '#/lib/app-base.ts'
 import {
   parseMapSearch,
   stringifyMapSearch,
@@ -8,7 +9,7 @@ import { routeTree } from './routeTree.gen'
 export function getRouter() {
   const router = createTanStackRouter({
     routeTree,
-    basepath: '/map',
+    basepath: getAppBasepath(),
     parseSearch: parseMapSearch,
     stringifySearch: stringifyMapSearch,
     scrollRestoration: true,

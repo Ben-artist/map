@@ -88,10 +88,6 @@ export function ChinaMapExplorer() {
     setAiChatOpen(false)
   }, [])
 
-  const handleRequestChinaView = useCallback(() => {
-    setSearch({})
-  }, [setSearch])
-
   const handleViewCities = useCallback(
     (provinceAdcode: string) => {
       setDetailPanelVisible(true)
@@ -114,7 +110,6 @@ export function ChinaMapExplorer() {
         viewProvinceAdcode={province ?? null}
         highlightAdcode={highlightAdcode}
         onRegionClick={handleRegionClick}
-        onRequestChinaView={handleRequestChinaView}
         onCitiesLoadingChange={setCitiesLoading}
       />
 
